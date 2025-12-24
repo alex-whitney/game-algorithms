@@ -13,6 +13,10 @@ func NewConsolePlayer(name string) Player {
 	}
 }
 
+func (p *consolePlayer) Initialize(playerNumber int, state GameState) {
+	// Do nothing
+}
+
 func (p *consolePlayer) Name() string {
 	return p.name
 }

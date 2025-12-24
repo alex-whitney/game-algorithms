@@ -21,18 +21,20 @@ var games = struct {
 }
 
 var players = struct {
-	Random  engine.Player
-	Console engine.Player
+	Random       engine.Player
+	Console      engine.Player
+	C4PerfectBot engine.Player
 }{
 	engine.NewRandomPlayer("RandomBot"),
 	engine.NewConsolePlayer("Human"),
+	connectfour.NewPerfectBot(5),
 }
 
 func main() {
-	game := games.RockPaperScissors
+	game := games.ConnectFour
 
 	players := []engine.Player{
-		players.Random,
+		players.C4PerfectBot,
 		players.Console,
 	}
 	rand.Shuffle(len(players), func(i, j int) {

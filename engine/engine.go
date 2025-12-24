@@ -21,6 +21,9 @@ func NewEngine(game Game, player1 Player, player2 Player) *Engine {
 		currentState: game.Initialize(),
 	}
 
+	player1.Initialize(0, ret.currentState.VisibleForPlayer(0))
+	player2.Initialize(1, ret.currentState.VisibleForPlayer(1))
+
 	return ret
 }
 

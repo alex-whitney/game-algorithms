@@ -7,6 +7,9 @@ type Player interface {
 	// Returns the player's name
 	Name() string
 
+	// Called to initialize the player before the game starts
+	Initialize(playerNumber int, state GameState)
+
 	// Given a list of potentially valid actions and a game state, chooses an
 	// action
 	ChooseAction(state GameState, validActions []Action) Action
@@ -21,6 +24,10 @@ func NewRandomPlayer(name string) Player {
 	return &randomPlayer{
 		name,
 	}
+}
+
+func (p *randomPlayer) Initialize(playerNumber int, state GameState) {
+	// Do nothing
 }
 
 func (p *randomPlayer) Name() string {
