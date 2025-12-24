@@ -13,9 +13,9 @@ const (
 )
 
 var shapeName = map[ShapeType]string{
-	ShapeRock:     "Rock",
-	ShapePaper:    "Paper",
-	ShapeScissors: "Scissors",
+	ShapeRock:     "🪨",
+	ShapePaper:    "📄",
+	ShapeScissors: "✂️",
 }
 
 type Action struct {
