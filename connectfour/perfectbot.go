@@ -39,10 +39,9 @@ func (p *perfectBot) ChooseAction(state engine.GameState, validActions []engine.
 
 	root := p.walk(state, validActions, true, 1)
 
-	maxScore := p.score(root)
 	maxActions := []engine.Action{}
 	for action, node := range root.children {
-		if maxScore == node.value {
+		if root.value == node.value {
 			maxActions = append(maxActions, action)
 		}
 	}
@@ -72,10 +71,12 @@ func (p *perfectBot) walk(state engine.GameState, validActions []engine.Action, 
 	}
 
 	if depth > p.maxDepth {
+		// todo: heuristic evaluation of board state
 		return ret
 	}
 
 	ret.children = map[engine.Action]*node{}
+	scores := []int{}
 
 	num := p.playerNumber
 	if !myMove {
@@ -89,27 +90,19 @@ func (p *perfectBot) walk(state engine.GameState, validActions []engine.Action, 
 		}
 
 		actions := p.game.ValidActions(result)
-		ret.children[a] = p.walk(result, actions, !myMove, depth+1)
+
+		child := p.walk(result, actions, !myMove, depth+1)
+		ret.children[a] = child
+		scores = append(scores, child.value)
+	}
+
+	if myMove {
+		ret.value = slices.Max(scores)
+	} else {
+		ret.value = slices.Min(scores)
 	}
 
 	return ret
-}
-
-func (p *perfectBot) score(root *node) int {
-	if len(root.children) > 0 {
-		scores := []int{}
-		for _, child := range root.children {
-			scores = append(scores, p.score(child))
-		}
-
-		if root.myMove {
-			root.value = slices.Max(scores)
-		} else {
-			root.value = slices.Min(scores)
-		}
-	}
-
-	return root.value
 }
 
 type node struct {
