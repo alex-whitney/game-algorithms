@@ -8,6 +8,9 @@ type Action interface {
 
 	// A string description of this action
 	Description() string
+
+	// Whether or not this action is hidden from other players
+	IsHidden() bool
 }
 
 func CollectIds(actions []Action) []int {

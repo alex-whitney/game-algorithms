@@ -11,4 +11,8 @@ type GameState interface {
 
 	// Generate a full copy of this game state
 	DeepClone() GameState
+
+	// Generate a full copy of this game state that represents what is visible
+	// for the specified player
+	VisibleForPlayer(player int) GameState
 }

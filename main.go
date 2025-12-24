@@ -6,15 +6,18 @@ import (
 
 	"github.com/alex-whitney/tictactoe/connectfour"
 	"github.com/alex-whitney/tictactoe/engine"
+	"github.com/alex-whitney/tictactoe/rockpaperscissors"
 	"github.com/alex-whitney/tictactoe/tictactoe"
 )
 
 var games = struct {
-	TicTacToe   engine.Game
-	ConnectFour engine.Game
+	TicTacToe         engine.Game
+	ConnectFour       engine.Game
+	RockPaperScissors engine.Game
 }{
 	tictactoe.NewGame(),
 	connectfour.NewGame(),
+	rockpaperscissors.NewGame(7),
 }
 
 var players = struct {
@@ -26,7 +29,7 @@ var players = struct {
 }
 
 func main() {
-	game := games.TicTacToe
+	game := games.RockPaperScissors
 
 	players := []engine.Player{
 		players.Random,

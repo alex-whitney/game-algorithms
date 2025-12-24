@@ -1,6 +1,9 @@
 package engine
 
-import "fmt"
+import (
+	"fmt"
+	"slices"
+)
 
 type Engine struct {
 	players      []Player
@@ -39,12 +42,19 @@ func (e *Engine) RunToCompletion() (Player, error) {
 		actions := e.game.ValidActions(e.currentState)
 
 		action := e.players[activePlayer].ChooseAction(e.currentState, actions)
+		if !slices.Contains(actions, action) {
+			return nil, fmt.Errorf("player %d is trying to cheat - selected action not valid", activePlayer)
+		}
 
-		fmt.Printf("%s action: %s\n", e.players[activePlayer].Name(), action.Description())
+		if action.IsHidden() {
+			fmt.Printf("%s has selected an action\n", e.players[activePlayer].Name())
+		} else {
+			fmt.Printf("%s action: %s\n", e.players[activePlayer].Name(), action.Description())
+		}
 
 		e.currentState, err = e.game.ApplyAction(e.currentState, activePlayer, action)
 		if err != nil {
-			panic(err)
+			return nil, err
 		}
 	}
 

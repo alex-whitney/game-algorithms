@@ -23,3 +23,7 @@ func (a *Action) Description() string {
 func (a *Action) Id() int {
 	return a.Column
 }
+
+func (a *Action) IsHidden() bool {
+	return false
+}

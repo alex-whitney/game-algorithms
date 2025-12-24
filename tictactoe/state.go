@@ -47,3 +47,7 @@ func (g *State) DeepClone() engine.GameState {
 
 	return ret
 }
+
+func (g *State) VisibleForPlayer(_ int) engine.GameState {
+	return g.DeepClone()
+}
