@@ -1,6 +1,7 @@
 package connectfour
 
 import (
+	"math/rand"
 	"slices"
 
 	"github.com/alex-whitney/tictactoe/engine"
@@ -39,13 +40,18 @@ func (p *perfectBot) ChooseAction(state engine.GameState, validActions []engine.
 	root := p.walk(state, validActions, true, 1)
 
 	maxScore := p.score(root)
+	maxActions := []engine.Action{}
 	for action, node := range root.children {
 		if maxScore == node.value {
-			return action
+			maxActions = append(maxActions, action)
 		}
 	}
 
-	panic("something broke - action score mismatch")
+	if len(maxActions) > 0 {
+		return maxActions[rand.Intn(len(maxActions))]
+	} else {
+		panic("something broke - action score mismatch")
+	}
 }
 
 func (p *perfectBot) walk(state engine.GameState, validActions []engine.Action, myMove bool, depth int) *node {
