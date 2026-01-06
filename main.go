@@ -27,7 +27,7 @@ var players = struct {
 }{
 	engine.NewRandomPlayer("RandomBot"),
 	engine.NewConsolePlayer("Human"),
-	connectfour.NewPerfectBot(5),
+	connectfour.NewPerfectBot(7),
 }
 
 func main() {
